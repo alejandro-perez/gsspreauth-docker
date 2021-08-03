@@ -9,3 +9,7 @@ services:
     build:
       context: .
       dockerfile: client.dockerfile
+  idp:
+    build:
+      context: .
+      dockerfile: idp.Dockerfile
