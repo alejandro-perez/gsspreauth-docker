@@ -5,10 +5,6 @@ services:
     build:
       context: .
       dockerfile: kdc.dockerfile
-  client:
-    build:
-      context: .
-      dockerfile: client.dockerfile
   idp:
     build:
       context: .
