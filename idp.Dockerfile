@@ -8,6 +8,10 @@ RUN apt-get -y update
 RUN apt-get -y install freeradius-abfab
 RUN chown freerad /etc/freeradius -R
 RUN echo 'alex@test.org   Cleartext-Password := "alex"' >> /etc/freeradius/users
+RUN sed -i "/post-auth {/a \
+                update outer.session-state { \n\
+                  User-Name := &User-Name \n\
+                }" /etc/freeradius/sites-available/inner-tunnel
 COPY fr-client.conf /
 RUN cat /fr-client.conf >> /etc/freeradius/clients.conf
 CMD freeradius -fxx -lstdout

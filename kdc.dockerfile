@@ -10,9 +10,11 @@ RUN set -x \
     && ./configure \
     && make -j10 \
     && make install
-COPY krb5.conf kdc.conf /usr/local/etc/
+COPY krb5.conf /usr/local/etc/
 RUN printf "test\ntest\n" | kdb5_util create -r ATHENA.MIT.EDU -s
+RUN kadmin.local -q "addprinc -pw randomsecretstring WELLKNOWN/FEDERATED"
 RUN kadmin.local -q "addprinc -pw test alex"
+COPY kdc.conf /usr/local/var/krb5kdc/
 
 # Build Moonshot
 RUN apt-get install -y wget git
@@ -37,3 +39,5 @@ RUN cp mech_eap/mech /usr/local/etc/gss/
 COPY radsec.conf /usr/local/etc/
 RUN apt-get -y install moonshot-ui
 CMD krb5kdc -n
+# CMD while true; do sleep 1h; done
+
