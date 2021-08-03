@@ -1,0 +1,11 @@
+version: '3'
+services:
+  kdc:
+    hostname: kerberos.mit.edu
+    build:
+      context: .
+      dockerfile: kdc.dockerfile
+  client:
+    build:
+      context: .
+      dockerfile: client.dockerfile
