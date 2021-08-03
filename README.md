@@ -11,7 +11,7 @@
 2. In another terminal, same folder, execute:
 
    ```bash
-   docker-compose exec kdc -- kinit -u 200 -X "gss_mech=1.3.6.1.5.5.15.1.1.17" -X gss_default -X gss_federated
+   docker-compose exec kdc kinit -u 200 -X "gss_mech=1.3.6.1.5.5.15.1.1.17" -X gss_default -X gss_federated
    ```
 
    That will execute the kinit application from within the `kdc` container. Use `alex@test.org` with password `alex` 
