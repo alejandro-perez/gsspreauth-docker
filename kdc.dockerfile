@@ -2,10 +2,10 @@ FROM ubuntu:18.04
 
 # Build Kerberos
 RUN apt-get -y update \
-    && apt-get -y install build-essential automake autoconf libtool bison git
+    && apt-get -y install build-essential automake autoconf libtool bison git libssl1.0-dev
 WORKDIR /code
 RUN set -x \
-    && git clone https://github.com/alejandro-perez/krb5.git -b gsspreauth \
+    && git clone https://github.com/alejandro-perez/krb5.git -b gsspreauth-1.13 \
     && cd krb5/src \
     && autoreconf -fi \
     && ./configure \
@@ -27,7 +27,7 @@ RUN set -x \
     && apt-get -y install moonshot-ui-dev moonshot-ui
 WORKDIR /code
 RUN set -x \
-    && apt-get install -y libssl1.0-dev libshibresolver-dev libsaml2-dev libshibsp-dev libradsec-dev libjansson-dev libxml2-dev libboost-dev \
+    && apt-get install -y libshibresolver-dev libsaml2-dev libshibsp-dev libradsec-dev libjansson-dev libxml2-dev libboost-dev \
     && mkdir -p /usr/local/include/et/ \
     && ln -s /usr/local/include/com_err.h /usr/local/include/et/ \
     && git clone https://github.com/janetuk/mech_eap.git \
